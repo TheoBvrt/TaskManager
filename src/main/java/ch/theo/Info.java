@@ -1,0 +1,1 @@
+enum MenuName {AddTask, RemoveTaskMenu, ShowTaskListMenu, TaskParameterMenu, Default}
