@@ -1,4 +1,5 @@
 package ch.theo;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -14,18 +15,24 @@ public class Options {
         taskName =  TaskManager.GetUserInput("Name");
         taskDescription = TaskManager.GetUserInput("Description");
         taskExpirationDate = TaskManager.GetUserInput("Expiration date (mm.dd.yyyy)");
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jsonFilePath = "src/main/java/ch/theo/data.json";
-            ObjectNode jsonNode = (ObjectNode) objectMapper.readTree(new File(jsonFilePath));
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        TaskManager taskManager = new TaskManager();
+        String jsonFilePath = "src/main/java/ch/theo/data.json";
+        try {
+            ObjectNode rootNode = (ObjectNode) objectMapper.readTree(new File(jsonFilePath));
             ObjectNode newCategory = objectMapper.createObjectNode();
+            JsonNode jsonNode = rootNode.get("Task");
+            if (jsonNode.has(taskName)) {
+                System.out.println("This task already exists !");
+                BackToHome(taskManager);
+                return;
+            }
             newCategory.put("name", taskName);
             newCategory.put("expirationData", taskExpirationDate);
             newCategory.put("description", taskDescription);
-
-            jsonNode.with("Task").set(taskName, newCategory);
-            objectMapper.writeValue(new File(jsonFilePath), jsonNode);
+            rootNode.with("Task").set(taskName, newCategory);
+            objectMapper.writeValue(new File(jsonFilePath), rootNode);
         } catch (IOException e) {
             System.out.println("Error");
         }
