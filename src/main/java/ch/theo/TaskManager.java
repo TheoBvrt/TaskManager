@@ -1,3 +1,5 @@
+package ch.theo;
+
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;

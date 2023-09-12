@@ -1,3 +1,4 @@
+package ch.theo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -15,7 +16,7 @@ public class Options {
         taskExpirationDate = TaskManager.GetUserInput("Expiration date (mm.dd.yyyy)");
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            String jsonFilePath = "src/data.json";
+            String jsonFilePath = "src/main/java/ch/theo/data.json";
             ObjectNode jsonNode = (ObjectNode) objectMapper.readTree(new File(jsonFilePath));
 
             ObjectNode newCategory = objectMapper.createObjectNode();
