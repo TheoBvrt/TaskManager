@@ -18,11 +18,11 @@ public class Options {
 
         ObjectMapper objectMapper = new ObjectMapper();
         TaskManager taskManager = new TaskManager();
-        String jsonFilePath = "src/main/java/ch/theo/data.json";
+        final String jsonFilePath = "src/main/java/ch/theo/data.json";
         try {
-            ObjectNode rootNode = (ObjectNode) objectMapper.readTree(new File(jsonFilePath));
-            ObjectNode newCategory = objectMapper.createObjectNode();
-            JsonNode jsonNode = rootNode.get("Task");
+            final ObjectNode rootNode = (ObjectNode) objectMapper.readTree(new File(jsonFilePath));
+            final ObjectNode newCategory = objectMapper.createObjectNode();
+            final JsonNode jsonNode = rootNode.get("Task");
             if (jsonNode.has(taskName)) {
                 System.out.println("This task already exists !");
                 BackToHome(taskManager);
