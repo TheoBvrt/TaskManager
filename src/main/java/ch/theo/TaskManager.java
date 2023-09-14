@@ -5,6 +5,11 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class TaskManager {
+    String jsonPath;
+
+    public TaskManager(String newJsonPath) {
+        jsonPath = newJsonPath;
+    }
     public void TaskManagerStart() {
         ProgramSelector(MenuManager(MenuName.Default));
     }
@@ -44,10 +49,10 @@ public class TaskManager {
 
     public void ProgramSelector(int choice) {
         switch (choice) {
-            case 1 -> Options.AddTask();
-            case 2 -> Options.RemoveTask();
-            case 3 -> Options.ShowTaskList();
-            case 4 -> Options.TaskParameter();
+            case 1 -> Options.AddTask(jsonPath);
+            case 2 -> Options.RemoveTask(jsonPath);
+            case 3 -> Options.ShowTaskList(jsonPath);
+            case 4 -> Options.TaskParameter(jsonPath);
             case 5 -> Options.Exit();
         }
     }
